@@ -11,6 +11,8 @@ twitter = Blueprint("twitter", __name__)
 def twitter_chart():
 
     form = StockForm()
+    chart_url = None
+    flash("Upon submission, your chart might take a few seconds to load.", "info")
     if form.validate_on_submit():
         sentiments_times = get_sentiments_times(form.stock.data)   
         prices = get_prices(sentiments_times[1], (form.stock.data))
@@ -20,6 +22,5 @@ def twitter_chart():
 
         sentiments = sentiments_times[0]
         chart_url = get_chart_url(dates, prices, sentiments, form.stock.data)
-        return render_template("twitter.html", form = form, chart_url = chart_url) 
 
-    return render_template("twitter.html", form = form)
+    return render_template("twitter.html", form = form, chart_url = chart_url)
