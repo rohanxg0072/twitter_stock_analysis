@@ -16,48 +16,49 @@ def go_back_days(now, days, dtformat = '%Y-%m-%dT%H:%M:%SZ'):
 def get_sentiments_times(ticker):
     with open('bearertoken.txt') as bt:
         BEARER_TOKEN = bt.read()
+        BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAA7uSAEAAAAAwYwVJQ4rEPJ7WOLfAIxtowmzozY%3DYOQcDP1Lsjb3BgmKCpUfvAiJLYILIcF1GcUXuRewg7bPplv2Wl"
 
-    endpoint = 'https://api.twitter.com/2/tweets/search/recent'
-    headers = {'authorization': f'Bearer {BEARER_TOKEN}'}
-    params = {
-    'query': f'({ticker}) (lang:en)',
-    'max_results': '10',
-    'tweet.fields': 'created_at,lang',
-    }
+        endpoint = 'https://api.twitter.com/2/tweets/search/recent'
+        headers = {'authorization': f'Bearer {BEARER_TOKEN}'}
+        params = {
+        'query': f'({ticker}) (lang:en)',
+        'max_results': '10',
+        'tweet.fields': 'created_at,lang',
+        }
 
-    dtformat = '%Y-%m-%dT%H:%M:%SZ'
+        dtformat = '%Y-%m-%dT%H:%M:%SZ'
 
-    now = datetime.now().replace(hour = 13, minute= 30, second=0)
-    now = go_back_days(now.strftime(dtformat), 1)
+        now = datetime.now().replace(hour = 13, minute= 30, second=0)
+        now = go_back_days(now.strftime(dtformat), 1)
 
-    avgSentiment = []
-    times = []
+        avgSentiment = []
+        times = []
 
-    for x in range(0, 5):
-        day_before = go_back_days(now, 1)
-        
-        params['start_time'] = day_before
-        params['end_time'] = now
-
-        times.append(now)
-
-        response = requests.get(endpoint,
-                            params=params,
-                            headers=headers)
-        now = day_before
+        for x in range(0, 5):
+                day_before = go_back_days(now, 1)
                 
-        tweets = 0
-        totalSentiment = 0
-        sid = SentimentIntensityAnalyzer()
+                params['start_time'] = day_before
+                params['end_time'] = now
 
-        for tweet in response.json()['data']:
-            totalSentiment += sid.polarity_scores(tweet['text'])["compound"]
-            tweets += 1
+                times.append(now)
 
-        avgSentiment.append(totalSentiment/tweets)
-        
-    avgSentiment.reverse()
-    times.reverse()
+                response = requests.get(endpoint,
+                                params=params,
+                                headers=headers)
+                now = day_before
+                        
+                tweets = 0
+                totalSentiment = 0
+                sid = SentimentIntensityAnalyzer()
+
+                for tweet in response.json()['data']:
+                        totalSentiment += sid.polarity_scores(tweet['text'])["compound"]
+                        tweets += 1
+
+                avgSentiment.append(totalSentiment/tweets)
+                
+        avgSentiment.reverse()
+        times.reverse()
 
     return([avgSentiment, times])
 
