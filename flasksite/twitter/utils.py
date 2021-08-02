@@ -27,12 +27,12 @@ def get_sentiments_times(ticker):
         dtformat = '%Y-%m-%dT%H:%M:%SZ'
 
         now = datetime.now().replace(hour = 13, minute= 30, second=0)
-        now = go_back_days(now.strftime(dtformat), 1)
+        now = go_back_days(now.strftime(dtformat), 2)
 
         avgSentiment = []
         times = []
 
-        for x in range(0, 5):
+        for x in range(0, 4):
                 day_before = go_back_days(now, 1)
                 
                 params['start_time'] = day_before
