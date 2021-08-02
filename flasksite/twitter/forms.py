@@ -11,7 +11,7 @@ class StockForm(FlaskForm):
         for ticker in tickers:
             tickers_list.append(ticker[0:len(ticker)-1])
 
-    stock = StringField("Stock Ticker", validators=[DataRequired()])
+    stock = StringField("Enter a Stock Ticker:", validators=[DataRequired()])
     submit = SubmitField("Enter")
 
     def validate_stock(self, stock, tickers_list=tickers_list):
