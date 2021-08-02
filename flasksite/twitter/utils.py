@@ -26,8 +26,8 @@ def get_sentiments_times(ticker):
 
         dtformat = '%Y-%m-%dT%H:%M:%SZ'
 
-        now = datetime.now().replace(hour = 13, minute= 30, second=0)
-        now = go_back_days(now.strftime(dtformat), 2)
+        now = datetime.utcnow().replace(hour = 13, minute= 30, second=0)
+        now = go_back_days(now.strftime(dtformat), 1)
 
         avgSentiment = []
         times = []
@@ -49,12 +49,14 @@ def get_sentiments_times(ticker):
                 totalSentiment = 0
                 sid = SentimentIntensityAnalyzer()
 
-                for tweet in response.json()['data']:
-                        totalSentiment += sid.polarity_scores(tweet['text'])["compound"]
-                        tweets += 1
+                try:
+                        for tweet in response.json()['data']:
+                                totalSentiment += sid.polarity_scores(tweet['text'])["compound"]
+                                tweets += 1
 
-                avgSentiment.append(totalSentiment/tweets)
-                
+                        avgSentiment.append(totalSentiment/tweets)
+                except KeyError:
+                        continue
         avgSentiment.reverse()
         times.reverse()
 
@@ -66,10 +68,11 @@ def get_prices(times, ticker):
     for time in times:
         price = stock.history(
         start = datetime.strptime(time, '%Y-%m-%dT%H:%M:%SZ'),
-        end = datetime.strptime(time, '%Y-%m-%dT%H:%M:%SZ')
         )
-        prices.append(price["Open"][0])
-
+        try:
+                prices.append(price["Open"][0])
+        except IndexError:
+                continue
     return prices
 
 def get_chart_url(dates, prices, sentiments, ticker):
