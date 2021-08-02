@@ -32,7 +32,7 @@ def get_sentiments_times(ticker):
         avgSentiment = []
         times = []
 
-        for x in range(0, 4):
+        for x in range(0, 5):
                 day_before = go_back_days(now, 1)
                 
                 params['start_time'] = day_before
