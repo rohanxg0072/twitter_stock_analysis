@@ -19,7 +19,8 @@ def twitter_chart():
                 dates.append(time[0:10])
 
         sentiments = sentiments_times[0]
-        chart_url = get_chart_url(dates, prices, sentiments, form.stock.data)
+        # chart_url = get_chart_url(dates, prices, sentiments, form.stock.data)
+        chart_url = "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
         return render_template("twitter.html", form = form, chart_url = chart_url) 
 
     return render_template("twitter.html", form = form)
