@@ -4,7 +4,13 @@
 {% block content %}
   <div class="content-section">
     <h1 class="article-metadata">Twitter Sentiment Stock Analysis</h1>
-        {{ wtf.quick_form(form, button_map={'submit':'info'}) }}
+        Enter a NYSE or Nasdaq stock ticker below to see a chart of the stock's stock price overlaid with a calculated value of Twitter sentiment (ranging form -1 to 1, with higher being more positive) about the stock over the past few days. Your chart might take a few seconds to load, so please hang tight.
+
+      <br><br>
+
+    <div>
+      {{ wtf.quick_form(form, button_map={'submit':'info'}) }}
+    </div>
   </div>
 
   {% if chart_url %}

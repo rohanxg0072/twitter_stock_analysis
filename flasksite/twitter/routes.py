@@ -12,7 +12,7 @@ def twitter_chart():
 
     form = StockForm()
     chart_url = None
-    flash("Upon submission, your chart might take a few seconds to load.", "info")
+    flash("Upon form submission, your chart might take a few seconds to load.", "info")
     if form.validate_on_submit():
         sentiments_times = get_sentiments_times(form.stock.data)   
         prices = get_prices(sentiments_times[1], (form.stock.data))
