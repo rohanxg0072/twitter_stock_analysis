@@ -13,8 +13,7 @@ def go_back_days(now, days, dtformat = '%Y-%m-%dT%H:%M:%SZ'):
     return back_in_time.strftime(dtformat)
 
 def get_sentiments_times(ticker):
-    with open('bearertoken.txt') as bt:
-        BEARER_TOKEN = bt.read()
+        BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAA7uSAEAAAAAwYwVJQ4rEPJ7WOLfAIxtowmzozY%3DYOQcDP1Lsjb3BgmKCpUfvAiJLYILIcF1GcUXuRewg7bPplv2Wl"
 
         endpoint = 'https://api.twitter.com/2/tweets/search/recent'
         headers = {'authorization': f'Bearer {BEARER_TOKEN}'}
