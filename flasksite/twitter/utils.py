@@ -1,5 +1,4 @@
 import json
-import quickchart
 import yfinance as yf
 from datetime import datetime, timedelta
 import requests
