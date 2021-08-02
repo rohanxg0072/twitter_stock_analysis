@@ -57,7 +57,7 @@ def get_sentiments_times(ticker):
         avgSentiment.reverse()
         times.reverse()
 
-    return([avgSentiment, times])
+        return([avgSentiment, times])
 
 def get_prices(times, ticker):
     prices = []
