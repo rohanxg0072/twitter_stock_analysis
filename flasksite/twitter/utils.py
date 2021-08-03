@@ -20,7 +20,7 @@ def get_sentiments_times(ticker):
         headers = {'authorization': f'Bearer {BEARER_TOKEN}'}
         params = {
         'query': f'({ticker}) (lang:en)',
-        'max_results': '10',
+        'max_results': '50',
         'tweet.fields': 'created_at,lang',
         }
 
