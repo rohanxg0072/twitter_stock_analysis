@@ -19,7 +19,7 @@ def get_sentiments_times(ticker):
         endpoint = 'https://api.twitter.com/2/tweets/search/recent'
         headers = {'authorization': f'Bearer {BEARER_TOKEN}'}
         params = {
-        'query': f'({ticker}) (lang:en)',
+        'query': f'({ticker} OR {getShortName(ticker)}) (lang:en)',
         'max_results': '50',
         'tweet.fields': 'created_at,lang',
         }
@@ -136,8 +136,6 @@ def get_chart_url(dates, prices, sentiments, ticker):
 
     return qc.get_url()
 
-
-# useful to include in twitter API query if using larger number of tweets
 def getShortName(ticker):
         with open("stocks.json") as file:
                 stocks_dicts = json.load(file)
